@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroEditorRedux", "ZeroEditorRedux\ZeroEditorRedux.csproj", "{D41C4B29-E9E0-4C91-83A0-E796411AB987}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWBF2", "D:\Git\SWBF2\SWBF2\SWBF2.csproj", "{870728F2-0A77-4445-A4AF-49E17B904943}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWBF2", "SWBF2\SWBF2\SWBF2.csproj", "{870728F2-0A77-4445-A4AF-49E17B904943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWBF2.UnitTests", "D:\Git\SWBF2\SWBF2.UnitTests\SWBF2.UnitTests.csproj", "{60618164-8DFA-41F1-8553-F6F32715DF85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWBF2.UnitTests", "SWBF2\SWBF2.UnitTests\SWBF2.UnitTests.csproj", "{60618164-8DFA-41F1-8553-F6F32715DF85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
