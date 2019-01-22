@@ -121,7 +121,7 @@ namespace SWBF2.Serialization
 
         private void ReadRoadDecals()
         {
-            throw new NotImplementedException("Road decals are not implemented.");
+            //throw new NotImplementedException("Road decals are not implemented.");
         }
 
         private WaterLayer ReadWaterLayer()

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 
 namespace SWBF2
 {
@@ -18,17 +17,6 @@ namespace SWBF2
         public Path(string name)
         {
             Name = name;
-        }
-
-        public static Path LoadFromFile(string path)
-        {
-            string text = string.Empty;
-            using (StreamReader sr = new StreamReader(path))
-            {
-                text = sr.ReadToEnd();
-            }
-
-            return null;
         }
     }
 }

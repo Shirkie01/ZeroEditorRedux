@@ -2,22 +2,19 @@
 {
     public class Region
     {
-        public string Name;
-        public int Id;
-        public Vector3 Position;
-        public Quaternion Rotation;
-        public Vector3 Size;
-        public Layer layer;
+        public string Name { get; set; }
+        public int Id { get; set; }
+        public Vector3 Position { get; set; }
+        public Quaternion Rotation { get; set; }
+        public Vector3 Size { get; set; }
+        public int LayerId { get; set; } = -1;
+        public string RegionType { get; set; }
+        public bool NextIsGrouped { get; set; }
 
-        public Region(string name, int id)
+        public Region(string regionType, int id)
         {
-            Name = name;
+            RegionType = regionType;
             Id = id;
-        }
-
-        public static Region LoadFromFile(string path)
-        {
-            return null;
         }
     }
 }

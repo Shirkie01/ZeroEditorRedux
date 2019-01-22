@@ -38,7 +38,7 @@
       <HintPath>lib\LibSWBF2.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\log4net.2.0.8\lib\net35-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,11 +49,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Animation\Animation.cs" />
+    <Compile Include="Model\Animation\AnimationGroup.cs" />
+    <Compile Include="Model\Animation\AnimationKey.cs" />
+    <Compile Include="Model\Animation\AnimationTransitionType.cs" />
+    <Compile Include="Model\Animation\PositionKey.cs" />
+    <Compile Include="Model\Animation\RotationKey.cs" />
     <Compile Include="Model\Barrier.cs" />
     <Compile Include="Model\Bookmark.cs" />
     <Compile Include="Model\Boundary.cs" />
     <Compile Include="Model\Camera.cs" />
-    <Compile Include="Model\Terrain\FoliageType.cs" />
+    <Compile Include="Model\Encounter.cs" />
+    <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\Light\Light.cs" />
+    <Compile Include="Model\Light\LightType.cs" />
+    <Compile Include="Model\LineRegion.cs" />
+    <Compile Include="Model\Plans\BranchWeight.cs" />
+    <Compile Include="Model\Plans\Connection.cs" />
+    <Compile Include="Model\Plans\Hub.cs" />
+    <Compile Include="Model\Light\PS2BlendMode.cs" />
+    <Compile Include="Model\Sector\Portal.cs" />
+    <Compile Include="Model\Sector\Sector.cs" />
     <Compile Include="Model\GameMode.cs" />
     <Compile Include="Model\GameObject.cs" />
     <Compile Include="Model\Hint\Hint.cs" />
@@ -69,6 +85,7 @@
     <Compile Include="Model\Path\PathSpeedType.cs" />
     <Compile Include="Model\Path\PathType.cs" />
     <Compile Include="Model\Path\SplineType.cs" />
+    <Compile Include="Model\Terrain\FoliageType.cs" />
     <Compile Include="Model\Terrain\InGameOptions.cs" />
     <Compile Include="Model\Terrain\TerrainBlock.cs" />
     <Compile Include="Model\Terrain\TerrainUtil.cs" />
@@ -81,17 +98,26 @@
     <Compile Include="Model\Terrain\TerrainExtents.cs" />
     <Compile Include="Model\World.cs" />
     <Compile Include="Model\WorldExtents.cs" />
+    <Compile Include="Serialization\AnimationFormatter.cs" />
+    <Compile Include="Serialization\AnimationGroupFormatter.cs" />
     <Compile Include="Serialization\BarrierFormatter.cs" />
+    <Compile Include="Serialization\BoundaryFormatter.cs" />
     <Compile Include="Serialization\HintFormatter.cs" />
     <Compile Include="Serialization\ITypedFormatter.cs" />
+    <Compile Include="Serialization\LightFormatter.cs" />
+    <Compile Include="Serialization\ObjectFormatter.cs" />
+    <Compile Include="Serialization\PathFormatter.cs" />
+    <Compile Include="Serialization\RegionFormatter.cs" />
     <Compile Include="Serialization\Terrain\TerrainFormatter.cs" />
     <Compile Include="Model\Terrain\TerrainHeader.cs" />
     <Compile Include="Serialization\Terrain\TerrainReader.cs" />
     <Compile Include="Serialization\Terrain\TerrainWriter.cs" />
+    <Compile Include="Serialization\WorldFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

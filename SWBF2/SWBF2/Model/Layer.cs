@@ -9,5 +9,10 @@
         public WorldExtents WorldExtents;
         public int Version;
         public int SaveType;
+
+        public Layer(string name, int int1)
+        {
+            Name = name;
+        }
     }
 }

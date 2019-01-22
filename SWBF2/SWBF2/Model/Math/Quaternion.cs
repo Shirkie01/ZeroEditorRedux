@@ -5,7 +5,7 @@ namespace SWBF2
 {
     public struct Quaternion
     {
-        public readonly double x, y, z, w;
+        public readonly double w, x, y, z;
 
         public static readonly Quaternion identity = new Quaternion(0, 0, 0, 1);
 
@@ -14,12 +14,12 @@ namespace SWBF2
         /// </summary>
         private static readonly Regex r = new Regex(@"(-?)(0|([1-9][0-9]*))(\.[0-9]+)?");
 
-        public Quaternion(double x, double y, double z, double w)
+        public Quaternion(double w, double x, double y, double z)
         {
+            this.w = w;
             this.x = x;
             this.y = y;
             this.z = z;
-            this.w = w;
         }
 
         public static Quaternion Parse(string s)
@@ -36,12 +36,21 @@ namespace SWBF2
             var z = double.Parse(values[2].Value);
             var w = double.Parse(values[3].Value);
 
-            return new Quaternion(x, y, z, w);
+            return new Quaternion(w, x, y, z);
         }
 
         public override string ToString()
         {
-            return string.Format("{0:F6}, {1:F6}, {2:F6}, {3:F6}", x, y, z, w);
+            return string.Format("{0:F6}, {1:F6}, {2:F6}, {3:F6}", w, x, y, z);
+        }
+
+        public Vector3 ToEulerAngles()
+        {
+            var eulerX = Math.Atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y));
+            var eulerY = Math.Asin(2 * (w * y - z * x));
+            var eulerZ = Math.Atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z));
+
+            return new Vector3(eulerX, eulerY, eulerZ);
         }
     }
 }

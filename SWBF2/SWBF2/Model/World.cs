@@ -43,7 +43,7 @@ namespace SWBF2
             MatchCollection matchCollection = Regex.Matches(ldxFile, layersMatch, RegexOptions.Singleline);
             foreach (Match match in matchCollection)
             {
-                Layer layer = new Layer();
+                Layer layer = new Layer("DefaultLayer", 0);
                 layer.Name = match.Groups[1].Value;
                 layer.SaveType = int.Parse(match.Groups[2].Value);
                 world.Layers.Add(layer);

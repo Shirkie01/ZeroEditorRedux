@@ -4,6 +4,6 @@ namespace SWBF2
 {
     public class Boundary
     {
-        public IList<Path> Paths = new List<Path>();
+        public IList<Path> Paths { get; } = new List<Path>();
     }
 }
