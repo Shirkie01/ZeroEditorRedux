@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ZeroEditorRedux.TerrainHeaderProperties"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ZeroEditorRedux"
+             mc:Ignorable="d"
+             BorderThickness="1"
+             d:DataContext="{d:DesignInstance local:TerrainViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <AdornerDecorator />
+        <TextBlock Grid.Row="0" Text="GridSize" />
+        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="GridSize" Text="{Binding SelectedTerrain.Header.GridSize}" TextAlignment="Right" />
+
+        <TextBlock Grid.Row="1" Text="Extents" />
+        <TextBlock Grid.Row="1" Grid.Column="1" x:Name="Extents" TextAlignment="Right">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="({0},{1}) - ({2},{3})">
+                    <Binding Path="SelectedTerrain.Header.Extents.MinX" />
+                    <Binding Path="SelectedTerrain.Header.Extents.MinY" />
+                    <Binding Path="SelectedTerrain.Header.Extents.MaxX" />
+                    <Binding Path="SelectedTerrain.Header.Extents.MaxY" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+
+        <TextBlock Grid.Row="2" Text="MapHeightMultiplier" />
+        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="MapHeightMultiplier" Text="{Binding SelectedTerrain.Header.MapHeightMultiplier}" TextAlignment="Right" />
+
+        <TextBlock Grid.Row="3" Text="GridScale" />
+        <TextBlock Grid.Row="3" Grid.Column="1" x:Name="GridScale" Text="{Binding SelectedTerrain.Header.GridScale}" TextAlignment="Right" />
+    </Grid>
+</UserControl>

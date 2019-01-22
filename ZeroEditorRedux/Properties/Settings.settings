@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ZeroEditorRedux.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SWBF2_MODTOOLS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\BF2_ModTools\</Value>
+    </Setting>
+    <Setting Name="SWBF2_DIRECTORY" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files (x86)\Steam\steamapps\common\Star Wars Battlefront II</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
