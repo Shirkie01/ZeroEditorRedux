@@ -72,7 +72,7 @@
     <Compile Include="Model\Sector\Sector.cs" />
     <Compile Include="Model\GameMode.cs" />
     <Compile Include="Model\GameObject.cs" />
-    <Compile Include="Model\Hint\Hint.cs" />
+    <Compile Include="Model\Hint\HintNode.cs" />
     <Compile Include="Model\Hint\HintMode.cs" />
     <Compile Include="Model\Hint\PrimaryStance.cs" />
     <Compile Include="Model\Hint\SecondaryStance.cs" />
