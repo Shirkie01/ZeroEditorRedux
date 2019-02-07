@@ -16,7 +16,7 @@ namespace ZeroEditorRedux
         public ICommand SetSWBF2DirectoryCommand { get; }
         public ICommand ExitCommand { get; }
 
-        public TerrainViewModel terrainViewModel { get; } = new TerrainViewModel();
+        public TerrainViewModel TerrainViewModel { get; } = new TerrainViewModel();
 
         private FileInfo _openFileInfo;
 
@@ -109,7 +109,7 @@ namespace ZeroEditorRedux
                     }
                     _swbf2DataDirectory = dir.Name;
 
-                    terrainViewModel.SelectedTerrain = World.Terrain;
+                    TerrainViewModel.SelectedTerrain = World.Terrain;
 
                     OnPropertyChanged();
                 }

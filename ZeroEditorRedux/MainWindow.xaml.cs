@@ -38,7 +38,7 @@ namespace ZeroEditorRedux
         private void LoadTerrainsAsync(MainWindowViewModel mainWindowViewModel)
         {
             var swbf2Terrains = LoadTerrains();
-            ((List<Terrain>)mainWindowViewModel.terrainViewModel.Terrains).AddRange(swbf2Terrains);
+            ((List<Terrain>)mainWindowViewModel.TerrainViewModel.Terrains).AddRange(swbf2Terrains);
         }
 
         private IList<Terrain> LoadTerrains()
@@ -246,7 +246,7 @@ namespace ZeroEditorRedux
             {
                 terrainIndex = 0;
             }
-            ((MainWindowViewModel)DataContext).terrainViewModel.SelectTerrain(terrainIndex);
+            ((MainWindowViewModel)DataContext).TerrainViewModel.SelectTerrain(terrainIndex);
             var terrain = terrains[terrainIndex];
             TerrainName.Text = terrain.GetName();
             htkViewport3d.Children.Add(terrain);
@@ -259,7 +259,7 @@ namespace ZeroEditorRedux
             {
                 terrainIndex = terrains.Count - 1;
             }
-            ((MainWindowViewModel)DataContext).terrainViewModel.SelectTerrain(terrainIndex);
+            ((MainWindowViewModel)DataContext).TerrainViewModel.SelectTerrain(terrainIndex);
             var terrain = terrains[terrainIndex];
             TerrainName.Text = terrain.GetName();
             htkViewport3d.Children.Add(terrain);

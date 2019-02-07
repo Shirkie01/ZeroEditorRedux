@@ -5,14 +5,14 @@ namespace ZeroEditorRedux.ViewModels
 {
     internal class HintNodeViewModel : ViewModelBase
     {
-        private Hint _selectedHintNode;
+        private HintNode _selectedHintNode;
 
-        public Hint SelectedHintNode
+        public HintNode SelectedHintNode
         {
             get => _selectedHintNode;
             set { SetProperty(ref _selectedHintNode, value); }
         }
 
-        private IList<Hint> HintNodes;
+        public IList<HintNode> HintNodes { get; } = new List<HintNode>();
     }
 }

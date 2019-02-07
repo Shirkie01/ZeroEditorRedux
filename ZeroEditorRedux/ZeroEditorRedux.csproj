@@ -169,7 +169,7 @@
     <Resource Include="Images\grid.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SWBF2\SWBF2\SWBF2.csproj">
+    <ProjectReference Include="..\..\SWBF2\SWBF2\SWBF2.csproj">
       <Project>{870728f2-0a77-4445-a4af-49e17b904943}</Project>
       <Name>SWBF2</Name>
     </ProjectReference>
