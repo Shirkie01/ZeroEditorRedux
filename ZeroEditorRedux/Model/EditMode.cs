@@ -1,4 +1,4 @@
-﻿namespace ZeroEditorRedux.Commands
+﻿namespace ZeroEditorRedux.Model
 {
     internal enum EditMode
     {

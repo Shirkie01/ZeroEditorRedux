@@ -9,7 +9,7 @@ namespace ZeroEditorRedux
 {
     internal class MainWindowViewModel : ViewModelBase
     {
-        public ICommand CreateWorldCommand { get; }
+        public ICommand NewWorldCommand { get; }
         public ICommand OpenWorldCommand { get; }
         public ICommand SaveWorldCommand { get; }
         public ICommand SetModToolsDirectoryCommand { get; }
@@ -82,11 +82,11 @@ namespace ZeroEditorRedux
 
         public MainWindowViewModel()
         {
-            OpenWorldCommand = new RelayCommand(OpenWorld);
-            SaveWorldCommand = new RelayCommand(SaveWorld);
-            SetModToolsDirectoryCommand = new RelayCommand(((ignore) => BrowseForDirectory((dir) => SWBF2ModToolsDirectory = dir)));
-            SetSWBF2DirectoryCommand = new RelayCommand(((ignore) => BrowseForDirectory((dir) => SWBF2GameDataDirectory = dir)));
-            ExitCommand = new RelayCommand(new Action<object>(Exit));
+            OpenWorldCommand = new RelayCommand<object>(OpenWorld);
+            SaveWorldCommand = new RelayCommand<object>(SaveWorld);
+            SetModToolsDirectoryCommand = new RelayCommand<object>(((ignore) => BrowseForDirectory((dir) => SWBF2ModToolsDirectory = dir)));
+            SetSWBF2DirectoryCommand = new RelayCommand<object>(((ignore) => BrowseForDirectory((dir) => SWBF2GameDataDirectory = dir)));
+            ExitCommand = new RelayCommand<object>(new Action<object>(Exit));
         }
 
         private void OpenWorld(object parameter)

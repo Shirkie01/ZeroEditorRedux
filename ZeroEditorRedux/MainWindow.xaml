@@ -12,7 +12,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="_Create New World..." Command="{Binding CreateWorldCommand}" />
+                <MenuItem Header="_New World..." Command="{Binding NewWorldCommand}" />
                 <Separator />
                 <MenuItem Header="_Open..." Command="{Binding OpenWorldCommand}" />
                 <Separator />
@@ -28,52 +28,126 @@
             <MenuItem Header="Mode">
             </MenuItem>
         </Menu>
-        <ToolBarTray DockPanel.Dock="Top">
-            <ToolBar ItemsSource="{Binding ToolbarItems}">
-                <StackPanel Margin="3">
-                    <TextBlock Text="Active Layer" />
-                    <ComboBox ItemsSource="{Binding Path=World.Layers}" DisplayMemberPath="Name" SelectedItem="{Binding Path=ActiveLayer}" />
-                </StackPanel>
-                <ToggleButton IsChecked="{Binding GridLinesVisible}" Margin="3">
-                    <Image Source="Images\grid.png" Width="16" Height="16" />
-                </ToggleButton>
-                <Button Content="Prev" Click="ButtonPrevious_Click" Padding="3,3,3,3" Margin="3,3,3,3" />
-                <TextBlock Name="TerrainName" VerticalAlignment="Center" />
-                <Button Content="Next" Click="ButtonNext_Click" Padding="3,3,3,3" Margin="3,3,3,3" />
-            </ToolBar>
-        </ToolBarTray>
+        <TabControl>
+            <TabItem Header="Main Editor">
+                <DockPanel>
+                    <ToolBar DockPanel.Dock="Top">
+                        <Button Command="{Binding NewWorldCommand}" Content="New"/>
+                        <Button Command="{Binding OpenWorldCommand}" Content="Open"/>
+                        <Button Command="{Binding SaveWorldCommand}" Content="Save"/>
+                        <Separator/>
+                        <Button Command="{Binding UndoCommand}" Content="Undo"/>
+                        <Button Command="{Binding RedoCommand}" Content="Redo"/>
+                        <Separator/>
+                        <StackPanel Margin="3 0">
+                            <TextBlock Text="Show:"/>
+                            <UniformGrid Rows="2">
+                                <ToggleButton Content="Object"/>
+                                <ToggleButton Content="Foliage"/>
+                                <ToggleButton Content="Paths"/>
+                                <ToggleButton Content="HintNodes"/>
+                                <ToggleButton Content="Regions"/>
+                                <ToggleButton Content="Barriers"/>
+                                <ToggleButton Content="Plans"/>
+                                <ToggleButton Content="Boundary"/>
+                            </UniformGrid>
+                        </StackPanel>
+                        <Separator/>
+                        <StackPanel Margin="3">
+                            <TextBlock Text="Terrain View:"/>
+                            <UniformGrid>
+                                <CheckBox Content="Solid"/>
+                                <CheckBox Content="Height"/>
+                                <CheckBox Content="Wire"/>
+                                <CheckBox Content="Color"/>
+                            </UniformGrid>
+                        </StackPanel>
+                        <Separator/>
+                        <DockPanel Margin="3" VerticalAlignment="Center">
+                            <TextBlock Text="Active Layer" DockPanel.Dock="Top" />
+                            <ComboBox ItemsSource="{Binding Path=World.Layers}" DisplayMemberPath="Name" SelectedItem="{Binding Path=ActiveLayer}" />
+                        </DockPanel>
+                    </ToolBar>
+                    <ToolBar DockPanel.Dock="Top">
+                        <DockPanel>
+                            <DockPanel.Resources>
+                                <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                    <Setter Property="Margin" Value="0 0 1 0"/>
+                                    <Setter Property="Padding" Value="6 0"/>
+                                </Style>
+                            </DockPanel.Resources>
+                            <TextBlock DockPanel.Dock="Top" Text="Edit Mode:"/>
+                            <UniformGrid Rows="1">
+                                <RadioButton GroupName="EditMode" Content="Height"/>
+                                <RadioButton GroupName="EditMode" Content="Color"/>
+                                <RadioButton GroupName="EditMode" Content="Texture"/>
+                                <RadioButton GroupName="EditMode" Content="Water"/>
+                                <RadioButton GroupName="EditMode" Content="Foliage"/>
+                                <RadioButton GroupName="EditMode" Content="Object"/>
+                                <RadioButton GroupName="EditMode" Content="Path"/>
+                                <RadioButton GroupName="EditMode" Content="Region"/>
+                                <RadioButton GroupName="EditMode" Content="Portal"/>
+                                <RadioButton GroupName="EditMode" Content="HintNode"/>
+                                <RadioButton GroupName="EditMode" Content="Barrier"/>
+                                <RadioButton GroupName="EditMode" Content="Planning"/>
+                                <RadioButton GroupName="EditMode" Content="Boundary"/>
+                                <RadioButton GroupName="EditMode" Content="Light"/>
+                            </UniformGrid>
+                        </DockPanel>
+                    </ToolBar>
+                    <HelixToolkit:HelixViewport3D>
+                        <HelixToolkit:SunLight/>
+                        <HelixToolkit:CubeVisual3D/>
+                    </HelixToolkit:HelixViewport3D>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Terrain Visualization Test">
+                <DockPanel>
+                    <ToolBarTray DockPanel.Dock="Top">
+                        <ToolBar>
+                            <Button Command="{Binding NewWorldCommand}" ToolTip="Create a new World">
+                                <Image Source="{Binding }"/>
+                            </Button>
+                            <ToggleButton IsChecked="{Binding GridLinesVisible}" Margin="3">
+                                <Image Source="Images\grid.png" Width="16" Height="16" />
+                            </ToggleButton>
+                            <Button Content="Prev" Click="ButtonPrevious_Click" Padding="3,3,3,3" Margin="3,3,3,3" />
+                            <TextBlock Name="TerrainName" VerticalAlignment="Center" />
+                            <Button Content="Next" Click="ButtonNext_Click" Padding="3,3,3,3" Margin="3,3,3,3" />
+                        </ToolBar>
+                    </ToolBarTray>
 
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
-            <StackPanel Orientation="Horizontal" DataContext="{Binding terrainViewModel}" VerticalAlignment="Bottom">
-                <StackPanel.Resources>
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="Margin" Value="0,0,10,0" />
-                    </Style>
-                </StackPanel.Resources>
-                <TextBlock Text="GridSize:" />
-                <TextBlock Text="{Binding SelectedTerrain.Header.GridSize}" />
-                <TextBlock Text="GridScale:" />
-                <TextBlock Text="{Binding SelectedTerrain.Header.GridScale}" />
-                <TextBlock Text="MapHeightMultiplier:" />
-                <TextBlock Text="{Binding SelectedTerrain.Header.MapHeightMultiplier}" />
-                <TextBlock Text="Extents:" />
-                <TextBlock Text="{Binding SelectedTerrain.Header.Extents}" />
-            </StackPanel>
-            <Grid x:Name="progressGrid">
-                <ProgressBar x:Name="progressBar" />
-                <TextBlock x:Name="progressText" HorizontalAlignment="Center" />
-            </Grid>
-        </StackPanel>
-        <!--
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" DataContext="{Binding terrainViewModel}" VerticalAlignment="Bottom">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="0,0,10,0" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="GridSize:" />
+                            <TextBlock Text="{Binding SelectedTerrain.Header.GridSize}" />
+                            <TextBlock Text="GridScale:" />
+                            <TextBlock Text="{Binding SelectedTerrain.Header.GridScale}" />
+                            <TextBlock Text="MapHeightMultiplier:" />
+                            <TextBlock Text="{Binding SelectedTerrain.Header.MapHeightMultiplier}" />
+                            <TextBlock Text="Extents:" />
+                            <TextBlock Text="{Binding SelectedTerrain.Header.Extents}" />
+                        </StackPanel>
+                        <Grid x:Name="progressGrid">
+                            <ProgressBar x:Name="progressBar" />
+                            <TextBlock x:Name="progressText" HorizontalAlignment="Center" />
+                        </Grid>
+                    </StackPanel>
+                    <!--
         <local:TerrainHeaderProperties x:Name="TerrainHeaderProperties" VerticalAlignment="Top" />
 -->
 
-        <Border Margin="3">
-            <Grid>
-                <HelixToolkit:HelixViewport3D x:Name="htkViewport3d" ShowCameraInfo="True" ShowCameraTarget="True" ShowCoordinateSystem="True" ShowFieldOfView="True" ShowFrameRate="True">
-                    <HelixToolkit:DefaultLights />
-                    <HelixToolkit:GridLinesVisual3D Fill="Gray" Visible="{Binding GridLinesVisible}" Length="128" />
-                    <!--
+                    <Border Margin="3">
+                        <Grid>
+                            <HelixToolkit:HelixViewport3D x:Name="htkViewport3d" ShowCameraInfo="True" ShowCameraTarget="True" ShowCoordinateSystem="True" ShowFieldOfView="True" ShowFrameRate="True">
+                                <HelixToolkit:DefaultLights />
+                                <HelixToolkit:GridLinesVisual3D Fill="Gray" Visible="{Binding GridLinesVisible}" Length="128" />
+                                <!--
                 <HelixToolkit:ArrowVisual3D Point1="5 0 -0.45" Point2="5 0 0.45" Diameter="0.2" Fill="Red" Visible="{Binding IsChecked, ElementName=ArrowVisible}" />
                 <HelixToolkit:BoxVisual3D Center="4 0 0" Fill="Orange" Length="0.8" Width="0.6" Height="0.9" Visible="{Binding IsChecked, ElementName=BoxVisible}" />
                 <HelixToolkit:CubeVisual3D Center="3 0 0" Fill="Yellow" SideLength="0.9" Visible="{Binding IsChecked, ElementName=CubeVisible}" />
@@ -88,8 +162,12 @@
                 <HelixToolkit:TruncatedConeVisual3D Origin="-6 0 -0.45" Height="0.9" BaseRadius="0.45" TopRadius="0.05" Fill="IndianRed" Visible="{Binding IsChecked, ElementName=TruncatedConeVisible}" />
                 <HelixToolkit:TubeVisual3D Path="-7 0 -0.45 -7 0.1 0 -7 0 0.45" Diameter="0.1" Fill="HotPink" Visible="{Binding IsChecked, ElementName=TubeVisible}" />
             -->
-                </HelixToolkit:HelixViewport3D>
-            </Grid>
-        </Border>
+                            </HelixToolkit:HelixViewport3D>
+                        </Grid>
+                    </Border>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+
     </DockPanel>
 </Window>

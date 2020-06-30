@@ -1,5 +1,4 @@
 ﻿using HelixToolkit.Wpf;
-using LibSWBF2.WLD;
 using log4net;
 using SWBF2;
 using SWBF2.Serialization;
@@ -53,9 +52,7 @@ namespace ZeroEditorRedux
             {
                 progressBar.Maximum = fileInfos.Length;
                 progressBar.IsIndeterminate = false;
-            });
-
-            bool useTER = false;
+            });            
 
             foreach (var fi in fileInfos)
             {
@@ -65,34 +62,23 @@ namespace ZeroEditorRedux
                     progressText.Text = fi.FullName;
                 });
 
-                if (useTER)
+
+                try
                 {
-                    var t = TER.LoadFromFile(fi.FullName);
+                    var t = formatter.Deserialize(new FileStream(fi.FullName, FileMode.Open));
+                    swbf2Terrains.Add(t);
                     progressBar.Dispatcher.Invoke(() =>
                     {
-                        var tv3d = CreateTerrainV3DFromTER(t);
+                        var tv3d = CreateTerrainV3DFromTerrain(t, fi.Directory.FullName);
                         tv3d.SetName(fi.Name);
                         terrains.Add(tv3d);
                     });
                 }
-                else
+                catch (NotImplementedException)
                 {
-                    try
-                    {
-                        var t = formatter.Deserialize(new FileStream(fi.FullName, FileMode.Open));
-                        swbf2Terrains.Add(t);
-                        progressBar.Dispatcher.Invoke(() =>
-                        {
-                            var tv3d = CreateTerrainV3DFromTerrain(t, fi.Directory.FullName);
-                            tv3d.SetName(fi.Name);
-                            terrains.Add(tv3d);
-                        });
-                    }
-                    catch (NotImplementedException)
-                    {
-                        log.Warn($"Terrain '{fi.Name}' has a feature which is not implemented. Continuing...");
-                    }
+                    log.Warn($"Terrain '{fi.Name}' has a feature which is not implemented. Continuing...");
                 }
+
 
                 progressBar.Dispatcher.Invoke(() =>
                 {
@@ -114,39 +100,6 @@ namespace ZeroEditorRedux
             });
             htkViewport3d.Dispatcher.Invoke(() => htkViewport3d.Children.Add(initTerrain));
             return swbf2Terrains;
-        }
-
-        private TerrainVisual3D CreateTerrainV3DFromTER(TER terrain)
-        {
-            var terrainV3D = new TerrainVisual3D();
-            var terrainModel = new TerrainModel();
-
-            // Do Terrain stuff
-            terrainModel.Width = terrain.GridSize;
-            terrainModel.Height = terrain.GridSize;
-
-            terrainModel.Top = terrain.Extent.ToY;
-            terrainModel.Bottom = terrain.Extent.FromY;
-            terrainModel.Left = terrain.Extent.ToX;
-            terrainModel.Right = terrain.Extent.FromX;
-
-            terrainModel.Data = new double[terrain.GridSize * terrain.GridSize];
-
-            var heights = terrain.RawHeights;
-            int index = 0;
-            var ext = terrain.Extent;
-            for (int x = ext.FromX; x < ext.ToX; x++)
-            {
-                for (int y = ext.FromY; y < ext.ToY; y++)
-                {
-                    var halfGridSize = terrain.GridSize / 2;
-                    var h = terrain.GetHeight(x + halfGridSize, y + halfGridSize) / terrain.GridScale;
-                    terrainModel.Data[index++] = h;
-                }
-            }
-
-            ((ModelVisual3D)(terrainV3D.Children[0])).Content = terrainModel.CreateModel(1);
-            return terrainV3D;
         }
 
         private TerrainVisual3D CreateTerrainV3DFromTerrain(Terrain terrain, string path)

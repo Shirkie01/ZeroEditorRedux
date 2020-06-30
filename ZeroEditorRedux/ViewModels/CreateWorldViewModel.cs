@@ -96,7 +96,7 @@ namespace ZeroEditorRedux
 
         public CreateWorldViewModel()
         {
-            CreateWorldCommand = new RelayCommand(new System.Action<object>(CreateWorld));
+            CreateWorldCommand = new RelayCommand<object>(CreateWorld);
         }
 
         private void CreateWorld(object parameter)
