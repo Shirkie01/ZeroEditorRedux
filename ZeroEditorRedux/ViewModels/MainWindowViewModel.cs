@@ -4,8 +4,9 @@ using System.IO;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
+using ZeroEditorRedux.Model;
 
-namespace ZeroEditorRedux
+namespace ZeroEditorRedux.ViewModels
 {
     internal class MainWindowViewModel : ViewModelBase
     {
@@ -16,7 +17,9 @@ namespace ZeroEditorRedux
         public ICommand SetSWBF2DirectoryCommand { get; }
         public ICommand ExitCommand { get; }
 
-        public TerrainViewModel TerrainViewModel { get; } = new TerrainViewModel();
+        public EditMode EditMode { get; set; }
+
+        public string ActiveEditMode => EditMode.ToString();        
 
         private FileInfo _openFileInfo;
 
@@ -36,15 +39,7 @@ namespace ZeroEditorRedux
         {
             get => _world;
             private set => SetProperty(ref _world, value);
-        }
-
-        private GeometryModel3D _terrainModel;
-
-        public GeometryModel3D TerrainModel
-        {
-            get => _terrainModel;
-            set => SetProperty(ref _terrainModel, value);
-        }
+        }        
 
         private bool _gridLinesVisible = true;
 
@@ -103,13 +98,13 @@ namespace ZeroEditorRedux
                     _openFileInfo = new FileInfo(openDlg.FileName);
 
                     var dir = _openFileInfo.Directory;
-                    while (!dir.Name.StartsWith("data_"))
+                    while (!dir.Name.StartsWith("data_", StringComparison.InvariantCultureIgnoreCase))
                     {
                         dir = dir.Parent;
                     }
                     _swbf2DataDirectory = dir.Name;
 
-                    TerrainViewModel.SelectedTerrain = World.Terrain;
+                    //TerrainViewModel.SelectedTerrain = World.Terrain;
 
                     OnPropertyChanged();
                 }

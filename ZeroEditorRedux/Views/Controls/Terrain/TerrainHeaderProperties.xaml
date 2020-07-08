@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ZeroEditorRedux"
              mc:Ignorable="d"
              BorderThickness="1"
-             d:DataContext="{d:DesignInstance local:TerrainViewModel, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance local:TerrainDisplayModel, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

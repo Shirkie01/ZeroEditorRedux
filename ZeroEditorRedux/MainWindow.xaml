@@ -3,20 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ZeroEditorRedux"
-        xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
+        xmlns:zero="zero-editor-redux"
+        xmlns:zterr="clr-namespace:ZeroEditorRedux.Views.Controls.Terrain"        
+        xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"        
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance local:MainWindowViewModel, IsDesignTimeCreatable=True}"
-        Title="{Binding AppTitle, TargetNullValue=ZeroEditorRedux}">
+        d:DataContext="{d:DesignInstance zero:MainWindowViewModel, IsDesignTimeCreatable=True}"
+        Title="{Binding AppTitle, TargetNullValue='Zero Editor Redux'}" d:DesignWidth="1980" d:DesignHeight="1080">
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="_New World..." Command="{Binding NewWorldCommand}" />
+                <MenuItem Header="_New World..." Command="{Binding NewWorldCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="Images/Menu/NewFile_16x.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
-                <MenuItem Header="_Open..." Command="{Binding OpenWorldCommand}" />
+                <MenuItem Header="_Open..." Command="{Binding OpenWorldCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="Images/Menu/OpenProject_16x.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
-                <MenuItem Header="_Save" Command="{Binding SaveWorldCommand}" />
+                <MenuItem Header="_Save" Command="{Binding SaveWorldCommand}" >
+                    <MenuItem.Icon>
+                        <Image Source="Images/Menu/Save_16x.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="Save _As..." />
                 <Separator />
                 <MenuItem Header="E_xit" Command="{Binding ExitCommand}" />
@@ -32,12 +45,22 @@
             <TabItem Header="Main Editor">
                 <DockPanel>
                     <ToolBar DockPanel.Dock="Top">
-                        <Button Command="{Binding NewWorldCommand}" Content="New"/>
-                        <Button Command="{Binding OpenWorldCommand}" Content="Open"/>
-                        <Button Command="{Binding SaveWorldCommand}" Content="Save"/>
+                        <Button Command="{Binding NewWorldCommand}" ToolTip="New World" Height="30">
+                            <Image Source="Images/Menu/NewFile_16x.png"/>
+                        </Button>
+                        <Button Command="{Binding OpenWorldCommand}" ToolTip="Open World" Height="30">
+                            <Image Source="Images/Menu/OpenProject_16x.png"/>
+                        </Button>
+                        <Button Command="{Binding SaveWorldCommand}" ToolTip="Save World" Height="30">
+                            <Image Source="Images/Menu/Save_16x.png"/>
+                        </Button>
                         <Separator/>
-                        <Button Command="{Binding UndoCommand}" Content="Undo"/>
-                        <Button Command="{Binding RedoCommand}" Content="Redo"/>
+                        <Button Command="{Binding UndoCommand}" ToolTip="Undo (Ctrl-Z)" Height="30">
+                            <Image Source="Images/Menu/Undo_16x.png"/>
+                        </Button>
+                        <Button Command="{Binding RedoCommand}" ToolTip="Redo (Ctrl-Y)" Height="30">
+                            <Image Source="Images/Menu/Redo_16x.png"/>
+                        </Button>
                         <Separator/>
                         <StackPanel Margin="3 0">
                             <TextBlock Text="Show:"/>
@@ -95,77 +118,16 @@
                             </UniformGrid>
                         </DockPanel>
                     </ToolBar>
+                    <TextBlock Text="{Binding ActiveEditMode}"/>
                     <HelixToolkit:HelixViewport3D>
                         <HelixToolkit:SunLight/>
                         <HelixToolkit:CubeVisual3D/>
+                        <ModelVisual3D x:Name="TestModel"/>
                     </HelixToolkit:HelixViewport3D>
                 </DockPanel>
             </TabItem>
             <TabItem Header="Terrain Visualization Test">
-                <DockPanel>
-                    <ToolBarTray DockPanel.Dock="Top">
-                        <ToolBar>
-                            <Button Command="{Binding NewWorldCommand}" ToolTip="Create a new World">
-                                <Image Source="{Binding }"/>
-                            </Button>
-                            <ToggleButton IsChecked="{Binding GridLinesVisible}" Margin="3">
-                                <Image Source="Images\grid.png" Width="16" Height="16" />
-                            </ToggleButton>
-                            <Button Content="Prev" Click="ButtonPrevious_Click" Padding="3,3,3,3" Margin="3,3,3,3" />
-                            <TextBlock Name="TerrainName" VerticalAlignment="Center" />
-                            <Button Content="Next" Click="ButtonNext_Click" Padding="3,3,3,3" Margin="3,3,3,3" />
-                        </ToolBar>
-                    </ToolBarTray>
-
-                    <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal" DataContext="{Binding terrainViewModel}" VerticalAlignment="Bottom">
-                            <StackPanel.Resources>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Margin" Value="0,0,10,0" />
-                                </Style>
-                            </StackPanel.Resources>
-                            <TextBlock Text="GridSize:" />
-                            <TextBlock Text="{Binding SelectedTerrain.Header.GridSize}" />
-                            <TextBlock Text="GridScale:" />
-                            <TextBlock Text="{Binding SelectedTerrain.Header.GridScale}" />
-                            <TextBlock Text="MapHeightMultiplier:" />
-                            <TextBlock Text="{Binding SelectedTerrain.Header.MapHeightMultiplier}" />
-                            <TextBlock Text="Extents:" />
-                            <TextBlock Text="{Binding SelectedTerrain.Header.Extents}" />
-                        </StackPanel>
-                        <Grid x:Name="progressGrid">
-                            <ProgressBar x:Name="progressBar" />
-                            <TextBlock x:Name="progressText" HorizontalAlignment="Center" />
-                        </Grid>
-                    </StackPanel>
-                    <!--
-        <local:TerrainHeaderProperties x:Name="TerrainHeaderProperties" VerticalAlignment="Top" />
--->
-
-                    <Border Margin="3">
-                        <Grid>
-                            <HelixToolkit:HelixViewport3D x:Name="htkViewport3d" ShowCameraInfo="True" ShowCameraTarget="True" ShowCoordinateSystem="True" ShowFieldOfView="True" ShowFrameRate="True">
-                                <HelixToolkit:DefaultLights />
-                                <HelixToolkit:GridLinesVisual3D Fill="Gray" Visible="{Binding GridLinesVisible}" Length="128" />
-                                <!--
-                <HelixToolkit:ArrowVisual3D Point1="5 0 -0.45" Point2="5 0 0.45" Diameter="0.2" Fill="Red" Visible="{Binding IsChecked, ElementName=ArrowVisible}" />
-                <HelixToolkit:BoxVisual3D Center="4 0 0" Fill="Orange" Length="0.8" Width="0.6" Height="0.9" Visible="{Binding IsChecked, ElementName=BoxVisible}" />
-                <HelixToolkit:CubeVisual3D Center="3 0 0" Fill="Yellow" SideLength="0.9" Visible="{Binding IsChecked, ElementName=CubeVisible}" />
-                <HelixToolkit:EllipsoidVisual3D Center="2 0 0" Fill="Green" RadiusX="0.45" RadiusY="0.3" RadiusZ="0.45" Visible="{Binding IsChecked, ElementName=EllipsoidVisible}" />
-                <HelixToolkit:ExtrudedVisual3D Path="1 0 -0.45 1 0 0.45" Section="0 0 0.45 0 0 0.45" Fill="Blue" Visible="{Binding IsChecked, ElementName=ExtrudedVisible}" />
-                <HelixToolkit:HelixVisual3D Origin="0 0 -0.45" Diameter="0.1" Turns="2" Length="0.9" Radius="0.35" Fill="Violet" Visible="{Binding IsChecked, ElementName=HelixVisible}" />
-                <HelixToolkit:PieSliceVisual3D Center="-1 0 0" OuterRadius="0.45" InnerRadius="0.1" Fill="Turquoise" Visible="{Binding IsChecked, ElementName=PieSliceVisible}" />
-                <HelixToolkit:PipeVisual3D Point1="-2 0 -0.45" Point2="-2 0 0.45" Diameter="0.9" InnerDiameter="0.7" Fill="Bisque" Visible="{Binding IsChecked, ElementName=PipeVisible}" />
-                <HelixToolkit:QuadVisual3D Point1="-3 -0.45 -0.45" Point2="-3 0.45 -0.45" Point3="-3 0.45 0.45" Point4="-3 -0.45 0.45" Fill="Gray" Visible="{Binding IsChecked, ElementName=QuadVisible}" />
-                <HelixToolkit:RectangleVisual3D Origin="-4 0 0" Width="0.9" Length="0.7" Fill="Tomato" Visible="{Binding IsChecked, ElementName=RectangleVisible}" />
-                <HelixToolkit:SphereVisual3D Center="-5 0 0" Fill="Gold" Radius="0.45" Visible="{Binding IsChecked, ElementName=SphereVisible}" />
-                <HelixToolkit:TruncatedConeVisual3D Origin="-6 0 -0.45" Height="0.9" BaseRadius="0.45" TopRadius="0.05" Fill="IndianRed" Visible="{Binding IsChecked, ElementName=TruncatedConeVisible}" />
-                <HelixToolkit:TubeVisual3D Path="-7 0 -0.45 -7 0.1 0 -7 0 0.45" Diameter="0.1" Fill="HotPink" Visible="{Binding IsChecked, ElementName=TubeVisible}" />
-            -->
-                            </HelixToolkit:HelixViewport3D>
-                        </Grid>
-                    </Border>
-                </DockPanel>
+                <zterr:TerrainVisualizationTester/>
             </TabItem>
         </TabControl>
 

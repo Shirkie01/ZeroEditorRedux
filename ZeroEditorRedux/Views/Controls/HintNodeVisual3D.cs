@@ -131,7 +131,7 @@ namespace ZeroEditorRedux.Controls
                     SetValue(RadiusProperty, value);
                 }
             }
-        }
+        }        
 
         protected override MeshGeometry3D Tessellate()
         {

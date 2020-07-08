@@ -60,10 +60,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\MeshReader.cs" />
+    <Compile Include="Model\TerrainLoader.cs" />
     <Compile Include="Model\Vector3Extensions.cs" />
     <Compile Include="ViewModels\BarrierViewModel.cs" />
     <Compile Include="ViewModels\Commands\RelayCommand.cs" />
-    <Compile Include="ViewModels\WorldViewModel.cs" />
     <Compile Include="Views\Controls\CreateNewWorld.xaml.cs">
       <DependentUpon>CreateNewWorld.xaml</DependentUpon>
     </Compile>
@@ -75,8 +76,17 @@
       <DependentUpon>SetRequiredDirectories.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\Terrain\DiffuseTexture.cs" />
+    <Compile Include="Views\Controls\Terrain\PaintBrush.xaml.cs">
+      <DependentUpon>PaintBrush.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\Terrain\TerrainBrush.xaml.cs">
+      <DependentUpon>TerrainBrush.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\Terrain\TerrainHeaderProperties.xaml.cs">
       <DependentUpon>TerrainHeaderProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\Terrain\TerrainVisualizationTester.xaml.cs">
+      <DependentUpon>TerrainVisualizationTester.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\Terrain\TerrainProperties.xaml.cs">
       <DependentUpon>TerrainProperties.xaml</DependentUpon>
@@ -84,9 +94,15 @@
     <Compile Include="ViewModels\CreateWorldViewModel.cs" />
     <Compile Include="ViewModels\FoliageViewModel.cs" />
     <Compile Include="ViewModels\HintNodeViewModel.cs" />
-    <Compile Include="ViewModels\TerrainViewModel.cs" />
+    <Compile Include="ViewModels\TerrainDisplayModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\Controls\Terrain\WaterBrush.xaml.cs">
+      <DependentUpon>WaterBrush.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoadLayers.xaml.cs">
+      <DependentUpon>LoadLayers.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\Controls\CreateNewWorld.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -99,7 +115,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\Terrain\PaintBrush.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\Terrain\TerrainBrush.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\Terrain\TerrainHeaderProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\Terrain\TerrainVisualizationTester.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,6 +151,14 @@
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\Terrain\WaterBrush.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoadLayers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +198,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit">
+      <Version>4.0.1</Version>
+    </PackageReference>
     <PackageReference Include="HelixToolkit.Wpf">
       <Version>2.12.0</Version>
     </PackageReference>
@@ -176,6 +215,24 @@
     <PackageReference Include="TgaLib">
       <Version>1.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\NewFile_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\OpenProject_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Save_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Undo_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Redo_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Converters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

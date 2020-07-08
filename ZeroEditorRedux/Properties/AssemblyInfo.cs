@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following set of attributes.
 // Change these attribute values to modify the information associated with an assembly.
@@ -44,3 +45,10 @@ using System.Windows;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
+[assembly: XmlnsPrefix("zero-editor-redux", "zero")]
+[assembly: XmlnsDefinition("zero-editor-redux", "ZeroEditorRedux")]
+[assembly: XmlnsDefinition("zero-editor-redux", "ZeroEditorRedux.ViewModels")]
+[assembly: XmlnsDefinition("zero-editor-redux", "ZeroEditorRedux.Views")]
+[assembly: XmlnsDefinition("zero-editor-redux", "ZeroEditorRedux.Views.Controls")]
+[assembly: XmlnsDefinition("zero-editor-redux", "ZeroEditorRedux.Views.Controls.Terrain")]
+[assembly: XmlnsDefinition("zero-editor-redux", "ZeroEditorRedux.Views.Converters")]

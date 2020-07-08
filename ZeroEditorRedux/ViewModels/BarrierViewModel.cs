@@ -1,25 +1,20 @@
 ﻿using HelixToolkit.Wpf;
 using SWBF2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZeroEditorRedux.Model;
+using System.Windows.Media.Media3D;
 
 namespace ZeroEditorRedux.ViewModels
 {
     internal class BarrierViewModel : ViewModelBase
     {
-        public BoxVisual3D Graphics { get; }
+        public MeshGeometryVisual3D Graphics { get; }
         public Barrier Barrier { get; }
 
         public BarrierViewModel(Barrier barrier)
         {
             Barrier = barrier;
-            Graphics = new BoxVisual3D()
+            Graphics = new MeshGeometryVisual3D()
             {
-                Center = barrier.Corners[0].ToPoint3D()
+                
             };
         }
     }
