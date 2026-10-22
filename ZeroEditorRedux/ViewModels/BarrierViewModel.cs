@@ -1,6 +1,5 @@
 ﻿using HelixToolkit.Wpf;
 using SWBF2;
-using System.Windows.Media.Media3D;
 
 namespace ZeroEditorRedux.ViewModels
 {

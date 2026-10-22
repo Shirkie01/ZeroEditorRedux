@@ -17,7 +17,7 @@ namespace ZeroEditorRedux
             }
         }
 
-        public override void Calculate(TerrainModel model, MeshGeometry3D mesh)
+        public override void Calculate(ITerrainModel model, MeshGeometry3D mesh)
         {
             var texcoords = new PointCollection();
             foreach (var p in mesh.Positions)

@@ -8,6 +8,7 @@ using log4net;
 using System.IO;
 using ZeroEditorRedux.Model;
 using SWBF2;
+using ZeroEditorRedux.Properties;
 
 namespace ZeroEditorRedux.Views.Controls.Terrain
 {
@@ -16,11 +17,11 @@ namespace ZeroEditorRedux.Views.Controls.Terrain
     /// </summary>
     public partial class TerrainVisualizationTester : UserControl
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TerrainVisualizationTester));        
+        private static readonly ILog log = LogManager.GetLogger(typeof(TerrainVisualizationTester));
 
         private int terrainIndex = 0;
 
-        public IList<TerrainDisplayModel> Terrains { get; } = new List<TerrainDisplayModel>();        
+        public IList<TerrainDisplayModel> Terrains { get; } = new List<TerrainDisplayModel>();
         public TerrainDisplayModel SelectedTerrain
         {
             get => Terrains[terrainIndex];
@@ -28,13 +29,19 @@ namespace ZeroEditorRedux.Views.Controls.Terrain
 
         public TerrainVisualizationTester()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
             Task.Run(() => LoadTerrainsAsync());
         }
 
         private void LoadTerrainsAsync()
         {
-            LoadTerrains("C:\\BF2_ModTools\\assets");
+            var modToolsDir = Settings.Default.SWBF2_MODTOOLS;
+
+            if (!Directory.Exists(modToolsDir))
+                throw new DirectoryNotFoundException(nameof(modToolsDir));
+
+            LoadTerrains(modToolsDir);
         }
 
         private void LoadTerrains(string directory)
@@ -96,7 +103,7 @@ namespace ZeroEditorRedux.Views.Controls.Terrain
             {
                 TerrainName.Text = initTerrain.Graphics.GetName();
             });
-            
+
             helixViewport3D.Dispatcher.Invoke(() => helixViewport3D.Children.Add(initTerrain.Graphics));
         }
 
