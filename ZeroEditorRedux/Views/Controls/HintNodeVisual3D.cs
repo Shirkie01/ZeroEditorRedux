@@ -1,4 +1,5 @@
-﻿using HelixToolkit.Wpf;
+﻿using HelixToolkit.Geometry;
+using HelixToolkit.Wpf;
 using SWBF2;
 using System.Windows;
 using System.Windows.Media.Media3D;
@@ -117,13 +118,9 @@ namespace ZeroEditorRedux.Controls
             }
         }
 
-        public double Radius
+        public float Radius
         {
-            get
-            {
-                return (double)GetValue(RadiusProperty);
-            }
-
+            get => (float)GetValue(RadiusProperty);
             set
             {
                 if (value > 0)
@@ -133,13 +130,13 @@ namespace ZeroEditorRedux.Controls
             }
         }        
 
-        protected override MeshGeometry3D Tessellate()
-        {
+        protected override System.Windows.Media.Media3D.MeshGeometry3D Tessellate()
+        {            
             var builder = new MeshBuilder(false, true);
-            builder.AddSphere(Position, Radius);
+            builder.AddSphere(Position.ToVector3(), Radius);
             Point3D endPoint = Position + (Rotation.Axis * Rotation.Angle);
-            builder.AddArrow(Position, endPoint, 1);
-            return builder.ToMesh();
+            builder.AddArrow(Position.ToVector3(), endPoint.ToVector3(), 1);
+            return builder.ToMesh().ToWndMeshGeometry3D();
         }
     }
 }
